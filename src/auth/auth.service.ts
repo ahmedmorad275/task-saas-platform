@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { RegisterDto } from './dto/register.dto.js';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto.js';
+import { Role } from '../generated/prisma/enums.js';
 
 @Injectable()
 export class AuthService {
@@ -34,7 +35,7 @@ export class AuthService {
             email,
             name,
             password: hashedPassword,
-            role: 'OWNER',
+            role: Role.OWNER,
           },
         },
       },
