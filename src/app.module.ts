@@ -3,6 +3,7 @@ import { AuthModule } from './auth/auth.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { ConfigModule } from '@nestjs/config';
 import { WorkspacesModule } from './workspaces/workspaces.module.js';
+import { BoardsModule } from './boards/boards.module.js';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { WorkspacesModule } from './workspaces/workspaces.module.js';
     AuthModule,
     PrismaModule,
     WorkspacesModule,
+    BoardsModule,
   ],
   controllers: [],
   providers: [],
