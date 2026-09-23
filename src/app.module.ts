@@ -4,6 +4,8 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { ConfigModule } from '@nestjs/config';
 import { WorkspacesModule } from './workspaces/workspaces.module.js';
 import { BoardsModule } from './boards/boards.module.js';
+import { ListsModule } from './lists/lists.module.js';
+import { TasksModule } from './tasks/tasks.module.js';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { BoardsModule } from './boards/boards.module.js';
     PrismaModule,
     WorkspacesModule,
     BoardsModule,
+    ListsModule,
+    TasksModule,
   ],
   controllers: [],
   providers: [],
