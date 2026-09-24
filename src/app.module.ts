@@ -6,6 +6,7 @@ import { WorkspacesModule } from './workspaces/workspaces.module.js';
 import { BoardsModule } from './boards/boards.module.js';
 import { ListsModule } from './lists/lists.module.js';
 import { TasksModule } from './tasks/tasks.module.js';
+import { UsersModule } from './users/users.module.js';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TasksModule } from './tasks/tasks.module.js';
     BoardsModule,
     ListsModule,
     TasksModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],

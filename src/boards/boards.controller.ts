@@ -15,9 +15,12 @@ import type { CurrentUserPayload } from '../auth/decorators/current-user.decorat
 import { CreateBoardDto } from './dto/create-board.dto.js';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 import { UpdateBoardDto } from './dto/update-board.dto.js';
+import { RolesGuard } from '../auth/guards/roles.guard.js';
+import { Roles } from '../auth/decorators/roles.decorator.js';
+import { Role } from '../generated/prisma/enums.js';
 
 @Controller('boards')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class BoardsController {
   constructor(private readonly boardsService: BoardsService) {}
 
@@ -27,6 +30,7 @@ export class BoardsController {
   }
 
   @Patch(':id')
+  @Roles(Role.ADMIN, Role.OWNER)
   update(
     @CurrentUser() user: CurrentUserPayload,
     @Param('id') id: string,
@@ -36,6 +40,7 @@ export class BoardsController {
   }
 
   @Delete('id')
+  @Roles(Role.ADMIN, Role.OWNER)
   remove(@CurrentUser() user: CurrentUserPayload, @Param('id') id: string) {
     return this.boardsService.remove(user.tenantId, id);
   }

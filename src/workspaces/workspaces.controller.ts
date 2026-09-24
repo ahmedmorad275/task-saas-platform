@@ -14,9 +14,12 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator.js';
 import type { CurrentUserPayload } from '../auth/decorators/current-user.decorator.js';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto.js';
+import { RolesGuard } from '../auth/guards/roles.guard.js';
+import { Roles } from '../auth/decorators/roles.decorator.js';
+import { Role } from '../generated/prisma/enums.js';
 
 @Controller('workspaces')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class WorkspacesController {
   constructor(private readonly workspacesService: WorkspacesService) {}
 
@@ -29,6 +32,7 @@ export class WorkspacesController {
   }
 
   @Patch(':id')
+  @Roles(Role.ADMIN, Role.OWNER)
   update(
     @CurrentUser() user: CurrentUserPayload,
     @Param('id') id: string,
@@ -38,6 +42,7 @@ export class WorkspacesController {
   }
 
   @Delete(':id')
+  @Roles(Role.OWNER)
   delete(@CurrentUser() user: CurrentUserPayload, @Param('id') id: string) {
     return this.workspacesService.remove(user.tenantId, id);
   }
